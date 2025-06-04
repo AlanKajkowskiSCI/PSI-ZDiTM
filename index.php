@@ -4,98 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
     <link src="scripts.js">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>ZbiorkomInfo</title>
+    <meta http-equiv="refresh" content="60">
 </head>
 
 <body>
-<?php
-#inicjowanie połączenia z bazą danych
-$host = "localhost"; 
-$db = "zbiorkominfo_db";
-$user = "root";
-$passwd = "";
-$charset = "utf8mb4";
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$pdo = new PDO($dsn, $user, $passwd);
-$options = [
+    <div class="panel">
+            <img src="res/zditm-logo-bw-pl.svg" alt="Logo ZDiTM"> 
+            
+    </div>
+
+    <div class="leftPanel">
+    <p>Tu kiedyś będzie nawigacja</p>
+    </div>
+    
+    <div class="feed">
+        <h1>Szybkie Fakty</h1>
+    <?php
+    $host = "localhost"; 
+    $db = "zbiorkominfo_db";
+    $user = "root";
+    $passwd = "";
+    $charset = "utf8mb4";
+    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+    $pdo = new PDO($dsn, $user, $passwd);
+    $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     PDO::ATTR_EMULATE_PREPARES   => false,
     ];
+    try {
 
-#pobieranie danych z API i ich dekodowanie
-$dane = file_get_contents("https://www.zditm.szczecin.pl/api/v1/vehicles");
-$daneZdekodowane = json_decode($dane, true);
+    $pdo = new PDO($dsn, $user, $passwd, $options);
+    $stmt = $pdo->prepare("SELECT COUNT(*) AS liczba_autobusow FROM pojazdy WHERE vehicle_type = :type");
+    $stmt->execute(['type' => 'bus']);
+    $row = $stmt->fetch();
+    echo "<p>Liczba autobusów = " . $row['liczba_autobusow'] . "</p>";
 
-/*echo '<pre>';
-print_r($daneZdekodowane);
-echo '</pre>';
-*/
-$sql = "INSERT INTO pojazdy 
-(
-    line_id, line_number, line_type, line_subtype, vehicle_type, vehicle_id,vehicle_number, vehicle_model, vehicle_low_floor, vehicle_operator,     
-    route_variant_number, service, direction, previous_stop, next_stop, latitude, longitude, bearing, velocity, punctuality, updated_at
-)
-VALUES 
-(
-    :line_id, :line_number, :line_type, :line_subtype, :vehicle_type, :vehicle_id, :vehicle_number, :vehicle_model, :vehicle_low_floor, :vehicle_operator,     
-    :route_variant_number, :service, :direction, :previous_stop, :next_stop, :latitude, :longitude, :bearing, :velocity, :punctuality, :updated_at
-)";
+    $stmt = $pdo->prepare("SELECT COUNT(*) AS liczba_tramwajow FROM pojazdy WHERE vehicle_type = :type");
+    $stmt->execute(['type' => 'tram']);
+    $row = $stmt->fetch();
+    echo "<p>Liczba tramwajów = " . $row['liczba_tramwajow'] . "</p>";
 
-$stm = $pdo->prepare($sql);
+    $stmt = $pdo->prepare("SELECT line_number, vehicle_model, vehicle_operator, direction, punctuality FROM pojazdy WHERE vehicle_type = 'bus' ORDER BY punctuality ASC LIMIT 1");
+    $stmt->execute();
+    $result = $stmt->fetch();
+    echo "<p>Autobus z największym opóźnieniem: " . $result['line_number'] . " w kierunku " . $result['direction'] . " opóźniony o " . $result['punctuality'] . " minut. Operatorem autobusu jest " . $result['vehicle_operator'] . ", model: " . $result['vehicle_model'];
 
-foreach ($daneZdekodowane['data'] as $item) {
-    $bearing = isset($item['bearing']) && $item['bearing'] !== null ? $item['bearing'] : 0;
-    $next_stop = isset($item['next_stop']) ? (is_array($item['next_stop']) ? implode(", ", $item['next_stop']) : $item['next_stop']) : '';
-    $vehicle_model = isset($item['vehicle_model']) && !empty($item['vehicle_model']) ? $item['vehicle_model'] : 'nieznany model';
-    $previous_stop = isset($item['previous_stop']) ? (is_array($item['previous_stop']) ? implode(", ", $item['previous_stop']) : $item['previous_stop']) : '';
-    $line_id = $item['line_id'] ?? 0;
-    $line_number = $item['line_number'] ?? '';
-    $line_type = $item['line_type'] ?? '';
-    $line_subtype = $item['line_subtype'] ?? '';
-    $vehicle_type = $item['vehicle_type'] ?? '';
-    $vehicle_id = $item['vehicle_id'] ?? 0;
-    $vehicle_number = $item['vehicle_number'] ?? '';
-    $vehicle_low_floor = isset($item['vehicle_low_floor']) ? (int)$item['vehicle_low_floor'] : 0;
-    $vehicle_operator = $item['vehicle_operator'] ?? '';
-    $route_variant_number = $item['route_variant_number'] ?? 0;
-    $service = $item['service'] ?? '';
-    $direction = $item['direction'] ?? '';
-    $latitude = $item['latitude'] ?? 0.0;
-    $longitude = $item['longitude'] ?? 0.0;
-    $velocity = $item['velocity'] ?? 0;
-    $punctuality = $item['punctuality'] ?? 0;
-    $updated_at = $item['updated_at'] ?? '';
-
-    $stm->execute([
-        ':line_id' => $line_id,
-        ':line_number' => $line_number,
-        ':line_type' => $line_type,
-        ':line_subtype' => $line_subtype,
-        ':vehicle_type' => $vehicle_type,
-        ':vehicle_id' => $vehicle_id,
-        ':vehicle_number' => $vehicle_number,
-        ':vehicle_model' => $vehicle_model,
-        ':vehicle_low_floor' => $vehicle_low_floor,
-        ':vehicle_operator' => $vehicle_operator,
-        ':route_variant_number' => $route_variant_number,
-        ':service' => $service,
-        ':direction' => $direction,
-        ':previous_stop' => $previous_stop,
-        ':next_stop' => $next_stop,
-        ':latitude' => $latitude,
-        ':longitude' => $longitude,
-        ':bearing' => $bearing,
-        ':velocity' => $velocity,
-        ':punctuality' => $punctuality,
-        ':updated_at' => $updated_at,
-    ]);
-}
-
+    $stmt = $pdo->prepare("SELECT line_number, vehicle_model, vehicle_operator, direction, punctuality FROM pojazdy WHERE vehicle_type = 'bus' ORDER BY punctuality DESC LIMIT 1");
+    $stmt->execute();
+    $result = $stmt->fetch();
+    echo "<p>Autobus z największym przyspieszeniem: " . $result['line_number'] . " w kierunku " . $result['direction'] . " przyspieszony o " . $result['punctuality'] . " minut. Operatorem autobusu jest " . $result['vehicle_operator'] . ", model: " . $result['vehicle_model'];
     
+    $stmt = $pdo->prepare("SELECT line_number, vehicle_model, vehicle_operator, direction, punctuality FROM pojazdy WHERE vehicle_type = 'tram' ORDER BY punctuality ASC LIMIT 1");
+    $stmt->execute();
+    $result = $stmt->fetch();
+    echo "<p>Tramwaj z największym opóźnieniem: " . $result['line_number'] . " w kierunku " . $result['direction'] . " opóźniony o " . $result['punctuality'] . " minut. Operatorem autobusu jest " . $result['vehicle_operator'] . ", model: " . $result['vehicle_model'];
+
+
+    $stmt = $pdo->prepare("SELECT line_number, vehicle_model, vehicle_operator, direction, punctuality FROM pojazdy WHERE vehicle_type = 'tram' ORDER BY punctuality DESC LIMIT 1");
+    $stmt->execute();
+    $result = $stmt->fetch();
+    echo "<p>Tramwaj z największym przyspieszeniem: " . $result['line_number'] . " w kierunku " . $result['direction'] . " przyspieszony o " . $result['punctuality'] . " minut. Operatorem autobusu jest " . $result['vehicle_operator'] . ", model: " . $result['vehicle_model'];
     
-?>
+
+    $stmt = $pdo->prepare("SELECT line_number, vehicle_model, vehicle_operator, direction, velocity FROM pojazdy WHERE vehicle_type = 'bus' ORDER BY velocity DESC LIMIT 1");
+    $stmt->execute();
+    $result = $stmt->fetch();
+    echo "<p>Najszybszy autobus: " . $result['line_number'] . " w kierunku " . $result['direction'] . " jadący " . $result['velocity'] . "  km/h. Operatorem autobusu jest " . $result['vehicle_operator'] . ", model: " . $result['vehicle_model'];
+    
+
+    $stmt = $pdo->prepare("SELECT line_number, vehicle_model, vehicle_operator, direction, velocity FROM pojazdy WHERE vehicle_type = 'bus' ORDER BY velocity ASC LIMIT 1");
+    $stmt->execute();
+    $result = $stmt->fetch();
+    echo "<p>Najwolniejszy autobus: " . $result['line_number'] . " w kierunku " . $result['direction'] . " jadący " . $result['velocity'] . "  km/h. Operatorem autobusu jest " . $result['vehicle_operator'] . ", model: " . $result['vehicle_model'];
+
+
+    }
+    catch (PDOException $e) 
+    {
+    echo "Błąd połączenia lub zapytania: " . $e->getMessage();
+    }
+
+    ?>
+    </div>
+
+
+    <div class="footer">
+        <p>Ten stópkarz jest do dokończenia</p>
+    </div>
+    
 
 </body>
 </html>
