@@ -36,7 +36,7 @@
             
     </div>
     
-    <div class="feed">
+    <div class="feed_linie">
 
     <?php
     $host = "localhost"; 
@@ -53,7 +53,7 @@
     ];
     try {
     $pdo = new PDO($dsn, $user, $passwd, $options);
-    $stmt = $pdo->prepare("SELECT COUNT(*) AS liczba_pojazdow FROM pojazdy GROUP BY line_number ORDER BY liczba_pojazdow");
+    $stmt = $pdo->prepare("SELECT line_number, COUNT(*) AS liczba_pojazdow FROM pojazdy GROUP BY line_number ORDER BY liczba_pojazdow");
     $stmt->execute();
     $linie = $stmt->fetchAll();
 
@@ -62,6 +62,10 @@
         echo "<p>Linia {$linia['line_number']} - {$linia['liczba_pojazdow']} pojazdów </p> ";
     }
 
+    }
+    catch (PDOException $e) 
+    {
+    echo "Błąd połączenia lub zapytania: " . $e->getMessage();
     }
 
     ?>

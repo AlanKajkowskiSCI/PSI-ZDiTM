@@ -78,7 +78,20 @@ color: white;
     font-size: 1.1rem;
 }
 
-
+.feed_linie{
+    overflow: auto;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    margin-top: 5vh;
+    margin-left: 15vw;
+    background-color:white;
+    width: 75vw;
+    height: 100vh;
+    border-radius: 10px;
+    border: 2px solid black;
+    color: #1A1D20;
+    font-size: 1.1rem;
+}
 
 .footer{
     position: fixed;
