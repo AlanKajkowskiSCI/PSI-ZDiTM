@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box
+}
+
 body{
     background-color: rgb(33, 37, 41);
     padding: 0;
@@ -36,6 +40,8 @@ background-color: #494d50;
 height: 80vh;
 width: 12vw;
 border-bottom-right-radius: 15px;
+border-top-right-radius: 15px;
+margin-top: 5vh;
 color: white;
 }
 
@@ -45,7 +51,11 @@ color: white;
     width: 10vw;
     height: 5vh;
     background-color: #1A1D20;
+    font-size: 1.1rem;
     color: white;
+    padding-left: 1vw;
+    padding-top: 1vh;
+    border-radius: 10px;
 }
 
 .leftPanelNav :hover{
