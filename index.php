@@ -18,7 +18,22 @@
     </div>
 
     <div class="leftPanel">
-    <p>Tu kiedyś będzie nawigacja</p>
+                <div class="leftPanelNav">
+                    <a href="linie.php">Linie</a>
+                </div>
+
+                <div class="leftPanelNav">
+                <a href="przystanki.php">Przystanki</a>
+                </div>
+
+                <div class="leftPanelNav">
+                <a href="zmiany.php">Zmiany</a>
+                </div>
+
+                <div class="leftPanelNav">
+                <a href="trajektoriaLinii.php">Trasy</a>
+                </div>
+            
     </div>
     
     <div class="feed">

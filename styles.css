@@ -7,7 +7,9 @@ body{
     font-family: 'Poppins', sans-serif;
     }
 
-
+a {
+    all: unset;
+}
 .panel{
     height: 5vh;
     width: 100vw;
@@ -37,6 +39,21 @@ border-bottom-right-radius: 15px;
 color: white;
 }
 
+
+.leftPanelNav {
+    margin: 1vw;
+    width: 10vw;
+    height: 5vh;
+    background-color: #1A1D20;
+    color: white;
+}
+
+.leftPanelNav :hover{
+    background-color: white;
+    color: #1A1D20;
+}
+
+
 .feed{
     padding-left: 1vw;
     padding-right: 1vw;
@@ -47,6 +64,8 @@ color: white;
     height: 70vh;
     border-radius: 10px;
     border: 2px solid black;
+    color: #1A1D20;
+    font-size: 1.1rem;
 }
 
 
