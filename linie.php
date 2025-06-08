@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="leftPanelNav">
-                <a href="przystanki.php">Przystanki</a>
+                <a href="galeria.php">Galeria</a>
                 </div>
 
                 <div class="leftPanelNav">
@@ -64,6 +64,7 @@
     ?>
 
     <form method="get" action="">
+        <div style="margin-top: 2vh;border: 1px solid #ccc; padding: 16px; margin-bottom: 20px; border-radius: 8px; background-color:rgba(73, 77, 80, 0.75); color:rgb(236, 236, 236)">
         <label for="linia">Wybierz linię która Cię interesuje: </label>
         <select name="linia" id="linia">
             <?php
@@ -73,6 +74,7 @@
 
         </select>
                 <input type="submit" value="Pokaż">
+                </div>
     </form>
 
     <?php
@@ -96,7 +98,7 @@
     if (count($pojazdy) > 0) {
         $ilosc_pojazdow = 0;
         echo "<h3>Pojazdy na linii: " . htmlspecialchars($linia) . "</h3>";
-        echo "<ul>";
+        echo "<ul class='gallery' style='display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 0; margin-top: 5vh;''>";
         foreach ($pojazdy as $pojazd) 
         {
             $model = $pojazd['vehicle_model'];
@@ -104,7 +106,6 @@
             
             #echo "<p>Szukana ścieżka: $plik_obrazka</p>";
             
-
             $ilosc_pojazdow++;
             echo "<li style='list-style: none; margin-bottom: 20px;'>";
             echo "<div style='display: flex; align-items: center; gap: 20px;'>";
@@ -115,7 +116,7 @@
             echo "<div style='width: 150px; text-align: center; color: gray;'>Brak zdjęcia</div>";
             }
 
-
+            echo '<div style="border: 1px solid #ccc; padding: 16px; margin-bottom: 20px; border-radius: 8px; background-color:rgba(73, 77, 80, 0.8); color:rgb(236, 236, 236)">';
             echo "<div>";
             echo "Numer pojazdu: {$pojazd['vehicle_number']}<br>";
             echo "Kierunek: {$pojazd['direction']}<br>";
@@ -126,12 +127,16 @@
             echo "Operator: {$pojazd['vehicle_operator']}<br>";
             echo "Punktualność: {$pojazd['punctuality']}<br>";
             echo "</div>";
+            echo "</div>";
+            
         }
-echo "</div>";
-echo "</li>";
+
+            echo "</li>";
         }
         echo "</ul>";
+        echo "<div style='font-size: calc(1vw + 1vh); text-align: center; margin-bottom: 2vh; margin-top: 2vh; border-radius: 8px; background-color:rgba(73, 77, 80, 0.75); color:rgb(236, 236, 236)'>";
         echo "<p>Ilość pojazdów na linii: {$ilosc_pojazdow}";
+        echo "</div>";
     } else {
         echo "<p>Brak autobusów na tej linii.</p>";
         
@@ -140,3 +145,10 @@ echo "</li>";
 ?>
 
     </div>
+    <div class="footer">
+        <p>2025 - Alan Kajkowski</p>
+    </div>
+
+    </body>
+    </html>
+    
