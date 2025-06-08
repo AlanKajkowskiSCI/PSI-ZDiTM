@@ -125,10 +125,11 @@ color: white;
     border: 2px solid black;
     color:rgb(236, 236, 236);
     font-size: calc(0.65vw + 0.65vh);
-    background-image: url('res/bg/bg_2.jpg');
+    background-image: url('res/bg/bg_3.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    
 }
 
 

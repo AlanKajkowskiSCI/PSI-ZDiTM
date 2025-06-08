@@ -98,7 +98,7 @@
     if (count($pojazdy) > 0) {
         $ilosc_pojazdow = 0;
         echo "<h3>Pojazdy na linii: " . htmlspecialchars($linia) . "</h3>";
-        echo "<ul class='gallery' style='display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 0; margin-top: 5vh;''>";
+        echo "<ul class='gallery' style='display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0; margin-top: 5vh;'>";
         foreach ($pojazdy as $pojazd) 
         {
             $model = $pojazd['vehicle_model'];
@@ -108,7 +108,7 @@
             
             $ilosc_pojazdow++;
             echo "<li style='list-style: none; margin-bottom: 20px;'>";
-            echo "<div style='display: flex; align-items: center; gap: 20px;'>";
+            echo "<div style='display: flex; flex-direction: column; align-items: center; gap: 20px;'>";
 
             if (file_exists($plik_obrazka)) {
             echo "<img src='$plik_obrazka' alt='Zdjęcie autobusu $model' style='width: 15vw; height: auto; border-radius: 10px;'>";

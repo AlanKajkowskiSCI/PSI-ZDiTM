@@ -38,7 +38,7 @@
     </div>
     
     <div class="feed_linie">
-        <ul class="gallery" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 0; margin-top: 5vh;">
+        <ul class="gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0; margin-top: 5vh;">
 
     <?php
     $host = "localhost"; 
@@ -65,7 +65,7 @@
     $typ = $model['vehicle_model'];
 
     echo "<li style='list-style: none; margin-bottom: 20px;'>";
-            echo "<div style='display: flex; align-items: center; gap: 20px;'>";
+            echo "<div style='display: flex; flex-direction: column; align-items: center; gap: 20px;'>";
 
             if (file_exists($plik_obrazka)) {
             echo "<img src='$plik_obrazka' alt='Zdjęcie autobusu $typ' style='width: 15vw; height: auto; border-radius: 10px;'>";
@@ -73,9 +73,9 @@
             echo "<div style='width: 150px; text-align: center; color: gray;'>Brak zdjęcia</div>";
             }
 
-            echo '<div style="border: 1px solid #ccc; padding: 16px; margin-bottom: 20px; border-radius: 8px;">';
-            echo "<div>";
+            echo '<div style="padding: 16px; margin-bottom: 20px; border-radius: 8px; background-color:rgba(73, 77, 80, 0.75); color:rgb(236, 236, 236)">';
             echo $typ;
+            echo "</div>";
     }
 
 }
