@@ -19,7 +19,7 @@
 
     <div class="leftPanel">
                 <div class="leftPanelNav">
-                    <a href="index.php">Strona główna</a>
+                <a href="index.php">Strona główna</a>
                 </div>
 
                 <div class="leftPanelNav">
@@ -27,11 +27,15 @@
                 </div>
 
                 <div class="leftPanelNav">
-                <a href="zmiany.php">Zmiany</a>
+                <a href="kontrolaPredkosci.php">Pomiary</a>
                 </div>
 
                 <div class="leftPanelNav">
-                <a href="trajektoriaLinii.php">Trasy</a>
+                <a href="trajektoriaLinii.php">Mapa</a>
+                </div>
+
+                <div class="leftPanelNav">
+                <a href="zmiany.php">Zmiany</a>
                 </div>
             
     </div>

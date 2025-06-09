@@ -22,7 +22,7 @@
 
     <div class="leftPanel">
                 <div class="leftPanelNav">
-                    <a href="linie.php">Linie</a>
+                <a href="index.php">Strona główna</a>
                 </div>
 
                 <div class="leftPanelNav">
@@ -30,11 +30,15 @@
                 </div>
 
                 <div class="leftPanelNav">
-                <a href="zmiany.php">Zmiany</a>
+                <a href="linie.php">Linie</a>
                 </div>
 
                 <div class="leftPanelNav">
-                <a href="index.php">Strona główna</a>
+                <a href="kontrolaPredkosci.php">Pomiary</a>
+                </div>
+
+                <div class="leftPanelNav">
+                <a href="zmiany.php">Zmiany</a>
                 </div>
             
     </div>

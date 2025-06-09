@@ -19,21 +19,25 @@
 
     <div class="leftPanel">
                 <div class="leftPanelNav">
-                    <a href="linie.php">Linie</a>
-                </div>
-
-                <div class="leftPanelNav">
-                <a href="przystanki.php">Przystanki</a>
-                </div>
-
-                <div class="leftPanelNav">
                 <a href="index.php">Strona główna</a>
                 </div>
 
                 <div class="leftPanelNav">
-                <a href="trajektoriaLinii.php">Trasy</a>
+                <a href="galeria.php">Galeria</a>
                 </div>
-            
+
+                <div class="leftPanelNav">
+                <a href="linie.php">Linie</a>
+                </div>
+
+                <div class="leftPanelNav">
+                <a href="kontrolaPredkosci.php">Pomiary</a>
+                </div>
+
+                <div class="leftPanelNav">
+                <a href="trajektoriaLinii.php">Mapa</a>
+                </div>
+
     </div>
 
     <div class="feed">
