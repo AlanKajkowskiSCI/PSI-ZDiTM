@@ -100,6 +100,26 @@ color: white;
     /*font-size: 2.1vh;*/
 }
 
+.feed_control{
+    overflow: auto;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    margin-top: 5vh;
+    margin-left: 15vw;
+    background-color:white;
+    width: 75vw;
+    height: 80vh;
+    border-radius: 10px;
+    border: 2px solid black;
+    color: #1A1D20;
+    font-size: calc(0.65vw + 0.65vh);
+    background-image: url('res/bg/bg_3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*font-size: 2.1vh;*/
+}
+
 .feed h1{
     font-size: calc(2vw + 2vh);
     font-weight: bold;
@@ -107,6 +127,11 @@ color: white;
 }
 
 .feed_index h1{
+    font-size: calc(2vw + 2vh);
+    font-weight: bold;
+    text-align: center;
+}
+.feed_control h1{
     font-size: calc(2vw + 2vh);
     font-weight: bold;
     text-align: center;

@@ -48,11 +48,14 @@ ON DUPLICATE KEY UPDATE
     direction = VALUES(direction),
     previous_stop = VALUES(previous_stop),
     next_stop = VALUES(next_stop),
+    latitude_old = latitude,
+    longitude_old = longitude,
     latitude = VALUES(latitude),
     longitude = VALUES(longitude),
     bearing = VALUES(bearing),
     velocity = VALUES(velocity),
     punctuality = VALUES(punctuality),
+    updated_old = updated_at,
     updated_at = VALUES(updated_at)";
 
 $stm = $pdo->prepare($sql);
@@ -97,6 +100,8 @@ foreach ($daneZdekodowane['data'] as $item) {
         ':direction' => $direction,
         ':previous_stop' => $previous_stop,
         ':next_stop' => $next_stop,
+
+
         ':latitude' => $latitude,
         ':longitude' => $longitude,
         ':bearing' => $bearing,

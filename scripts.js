@@ -1,6 +1,7 @@
 
     function refreshVehicles() {
         fetch('get_vehicles.php')
+        fetch('get_trajektoriaLinii.php')
         .then(Response =>{
             if(!Response.ok){
                 throw new Error('Błąd pobierania danych');

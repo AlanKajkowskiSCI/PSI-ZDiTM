@@ -34,6 +34,10 @@
                 <div class="leftPanelNav">
                 <a href="trajektoriaLinii.php">Trasy</a>
                 </div>
+
+                <div class="leftPanelNav">
+                <a href="kontrolaPredkosci.php">Kontrola prędkości</a>
+                </div>
             
     </div>
     
